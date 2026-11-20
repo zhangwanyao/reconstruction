@@ -61,6 +61,42 @@ python -I tools/eval_recon.py --ocp .venv/Lib/site-packages --cloud data/synth/S
 
 第一次跑建议按 [02 第 9 节](docs/02_overview.md) 和 [14 练习](docs/14_exercises.md) 的顺序动手：先跑一遍 S1，再逐个做 7 个实验。
 
+## 批量跑多份点云（recon.py / recon.exe）
+
+`tools/recon.py` 是流水线的批量入口（不改动 `proto_v2.py`，只是包装）：
+
+```
+# 单文件：和直接跑 proto_v2.py 完全一样
+python -I tools/recon.py data/synth/S1_tee.pcd out/S1_tee
+
+# 批量：目录里每个 .pcd 跑一遍，出错不中断
+python -I tools/recon.py --in data/synth --out out/batch --jobs 4
+python -I tools/recon.py --list files.txt --out out/batch --skip-existing
+```
+
+每份输出 `<out>/<名字>/` 下的 `model.step`、`parts.json`、`debug_top.png`、`run.log`，最后写 `<out>/batch_summary.json`（每份的关键数字 + 成败统计）。`--jobs` 多进程并行；`--skip-existing` 断点续跑；其余参数（`--px`、`--base-t`、`--mode`…）原样传给流水线。
+
+## 打包成 exe（可选）
+
+主流程只依赖 numpy / scipy / opencv，可以打成独立 exe 批量使用（评分工具依赖 OCP，见下注）：
+
+```powershell
+pip install pyinstaller
+pyinstaller --noconfirm --clean --onedir --name recon `
+  --add-data "tools;tools" `
+  --add-binary "<env>/Lib/site-packages/opencv_*.dll;." `
+  --exclude-module matplotlib `
+  --distpath D:\work\recon_dist --workpath D:\work\recon_build --specpath D:\work\recon_build `
+  tools\recon.py
+```
+
+产出的 `recon_dist\recon\recon.exe` 用法和 `recon.py` 一样（单文件 / `--in` / `--list` / `--jobs`）。注意事项：
+
+- `tools/recon.py` 顶部显式 `import numpy/scipy/cv2`，是为了让打包工具静态发现依赖（主流程代码是经 `runpy` 执行的，打包器看不到）。
+- conda 环境的 opencv 是拆分布局（`cv2.pyd` 依赖 `Library\bin\opencv_*.dll`），必须用 `--add-binary` 收进来；PyPI 的自包含 wheel 则不需要。
+- **打包后 `--jobs` 多进程可用**（入口已调用 `multiprocessing.freeze_support()`）；输出与 Python 逐字节一致。
+- 评分（`eval_recon.py`）、有效性检查（`check_step.py`）依赖 OCP（约几百 MB），不建议打进主 exe；有参考模型的工件请用 Python 环境跑评分，主 exe 专注"大量出模型"。
+
 ## 目录结构
 
 ```

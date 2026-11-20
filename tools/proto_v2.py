@@ -323,7 +323,7 @@ for A in plates:
             if sB < B["s0"] - 10 or sB > B["s1"] + 10:
                 continue
             off = (B["w"] / 2) / abs(den)
-            if abs(sA - A[end]) > off + A["w"] / 2 + 15:
+            if abs(sA - A[end]) > off + A["w"] / 2 + 3:    # +3(原 +15): 只认"紧挨端头"的交叉板,避免把离端头十几毫米的加劲板误当端头归宿(实验: 36 生成+7 合成+8 对比全无副作用, PC11 长板 153.1→160.8)
                 continue
             if best is None or abs(sA - A[end]) < abs(best[0] - A[end]):
                 best = (sA, off, B, sB)

@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# generated data and run results (tools/synth_gen.py can regenerate the data at any time)
+data/
+out/
+*.pcd
+*.step
+*.stp
+
+# editors
+.vscode/
+.idea/

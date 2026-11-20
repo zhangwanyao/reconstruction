@@ -1,0 +1,10 @@
+# Core: tools/proto_v2.py, protolib.py, synth_gen.py, step_writer.py
+numpy>=1.24
+scipy>=1.10
+# cv2.ximgproc.thinning is only in the contrib build. Install exactly ONE OpenCV package:
+# opencv-python, opencv-contrib-python and their -headless variants overwrite each other.
+opencv-contrib-python-headless>=4.8
+# Optional: plots in slice_probe.py and lean_probe.py
+matplotlib>=3.7
+# The evaluation tools (check_step, eval_recon, synth_bench, ...) also need OCP:
+#   pip install cadquery-ocp

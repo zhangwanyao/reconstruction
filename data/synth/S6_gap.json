@@ -1,0 +1,38 @@
+{
+ "case": "S6_gap",
+ "points": 644200,
+ "spacing_mm": 0.6,
+ "has_base": true,
+ "solids": [
+  {
+   "name": "base",
+   "kind": "base",
+   "top": 0,
+   "t": 20.0
+  },
+  {
+   "name": "E",
+   "kind": "plate",
+   "t": 8,
+   "top": 60,
+   "L": 700.0,
+   "dir_deg": 0.0
+  },
+  {
+   "name": "F1",
+   "kind": "plate",
+   "t": 8,
+   "top": 60,
+   "L": 300.0,
+   "dir_deg": 0.0
+  },
+  {
+   "name": "F2",
+   "kind": "plate",
+   "t": 8,
+   "top": 60,
+   "L": 300.0,
+   "dir_deg": 0.0
+  }
+ ]
+}

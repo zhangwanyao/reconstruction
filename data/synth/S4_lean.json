@@ -1,0 +1,30 @@
+{
+ "case": "S4_lean",
+ "points": 666487,
+ "spacing_mm": 0.6,
+ "has_base": true,
+ "solids": [
+  {
+   "name": "base",
+   "kind": "base",
+   "top": 0,
+   "t": 20.0
+  },
+  {
+   "name": "L",
+   "kind": "lean",
+   "t": 10,
+   "top": 120,
+   "lean_deg": 10,
+   "L": 400.0
+  },
+  {
+   "name": "V",
+   "kind": "plate",
+   "t": 8,
+   "top": 100,
+   "L": 400.0,
+   "dir_deg": 0.0
+  }
+ ]
+}

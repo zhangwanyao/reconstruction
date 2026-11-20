@@ -1,0 +1,47 @@
+{
+ "case": "S5_sparse_grid",
+ "points": 266216,
+ "spacing_mm": 1.5,
+ "has_base": true,
+ "solids": [
+  {
+   "name": "base",
+   "kind": "base",
+   "top": 0,
+   "t": 10,
+   "see_bottom": true
+  },
+  {
+   "name": "X1",
+   "kind": "plate",
+   "t": 8,
+   "top": 100,
+   "L": 700.0,
+   "dir_deg": 0.0
+  },
+  {
+   "name": "X2",
+   "kind": "plate",
+   "t": 8,
+   "top": 100,
+   "L": 700.0,
+   "dir_deg": 0.0
+  },
+  {
+   "name": "Y1",
+   "kind": "plate",
+   "t": 8,
+   "top": 100,
+   "L": 500.0,
+   "dir_deg": 90.0
+  },
+  {
+   "name": "Y2",
+   "kind": "plate",
+   "t": 8,
+   "top": 100,
+   "L": 500.0,
+   "dir_deg": 90.0
+  }
+ ]
+}

@@ -65,10 +65,17 @@ python -I tools/synth_bench.py --out out/bench --ocp <OCP目录> --tools tools -
 | S6_gap | OK | 100.0 | 100.0 | 4/4 | 2.55 | 是 | 1.0 | 20.0 |
 | S7_block | OK | 99.8 | 99.9 | 3/3 | 2.43 | 是 | 1.0 | 20.0 |
 
-**真实数据全流程**（数据不在仓库里）：
+**真实数据全流程**（8 份带参考模型的点云在 `data/clouds/`）：
 
-- `tools/run_bench.py`：对 8 份带参考模型的点云（F168、F173、F455、WP、SS30、SS34、WP169、WP338）跑 程序 → check_step → eval_recon → 对照分数线 → 写 summary.md。
-- `tools/run_noref.py`：对 34 份无参考的仿真云做冒烟测试（不崩、不超时、实体有效、调试图目测合理）。
+```
+python -I tools/run_bench.py --cmd "<python.exe> -I tools/proto_v2.py {pcd} {out}" ^
+       --data data/clouds --ocp <OCP目录> --out out/bench ^
+       --eval-cloud SS34=data/clouds/SS34u.pcd --repeat F168 --time-limit 0
+```
+
+跑 8 份 → check_step → eval_recon → 对照分数线 → 写 summary.md；`--repeat F168` 再跑一遍 F168 验证输出逐字节一致。数据清单、每份点云的参考模型内容和成绩见 `data/clouds/README.md`。
+
+- `tools/run_noref.py`：对一批无参考的点云做冒烟测试（不崩、不超时、实体有效、调试图目测合理）。34 份无参考的仿真云不随仓库分发，如有需要可单独提供。
 
 ## 4. 其他工具速查
 

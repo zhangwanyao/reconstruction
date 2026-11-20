@@ -43,7 +43,7 @@ python -m venv .venv
 pip install -r requirements.txt
 pip install cadquery-ocp          # 评分/检查工具才需要；主流程不依赖它
 
-# 2. 生成 7 个带标准答案的合成样例
+# 2. 合成样例（仓库已自带 data/synth/，可跳过；重新生成会覆盖）
 python -I tools/synth_gen.py data/synth
 
 # 3. 跑最简单的 S1（T 形接头：底板 + 两块垂直立板）
@@ -129,11 +129,14 @@ reconstruction/
     run_bench.py       真实数据全流程（需要 8 份带参考模型的点云）
     run_noref.py       无参考点云冒烟测试
     ...                其余为辅助分析工具，见 docs/12_eval_tools.md
+  data/
+    synth/             7 个合成样例（S1–S7，点云 + 标准答案）
+    clouds/            8 份带参考模型的点云（清单见 data/clouds/README.md）
   docs/                学习文档（见上面的地图）＋ images/
   requirements.txt
 ```
 
-`data/`（生成的样例数据）和 `out/`（运行结果）不提交，`tools/synth_gen.py` 随时可以重新生成。
+`data/synth/`（7 个合成样例，可由 `tools/synth_gen.py` 重新生成）和 `data/clouds/`（8 份带参考模型的点云）随仓库分发；其余 `data/` 内容和 `out/`（运行结果）不提交。
 
 ## 局限（诚实地说）
 

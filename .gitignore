@@ -4,12 +4,18 @@ __pycache__/
 .venv/
 venv/
 
-# generated data and run results (tools/synth_gen.py can regenerate the data at any time)
-data/
+# generated data and run results
+# data/synth (7 个合成样例) 和 data/clouds (8 份带参考模型的点云) 是随仓库分发的数据集，纳入版本控制；
+# 其余 data/ 内容（自行生成/复制的数据）与 out/ 不提交。
+data/*
+!data/synth/
+!data/clouds/
 out/
 *.pcd
 *.step
 *.stp
+!data/synth/**
+!data/clouds/**
 
 # editors
 .vscode/

@@ -1,0 +1,28 @@
+{
+ "case": "S7_block",
+ "points": 666517,
+ "spacing_mm": 0.6,
+ "has_base": true,
+ "solids": [
+  {
+   "name": "base",
+   "kind": "base",
+   "top": 0,
+   "t": 20.0
+  },
+  {
+   "name": "K",
+   "kind": "block",
+   "top": 40,
+   "t": 40
+  },
+  {
+   "name": "P",
+   "kind": "plate",
+   "t": 6,
+   "top": 70,
+   "L": 400.0,
+   "dir_deg": 0.0
+  }
+ ]
+}

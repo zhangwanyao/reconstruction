@@ -1,0 +1,30 @@
+{
+ "case": "S2_oblique",
+ "points": 1333000,
+ "spacing_mm": 0.6,
+ "has_base": true,
+ "solids": [
+  {
+   "name": "base",
+   "kind": "base",
+   "top": 0,
+   "t": 20.0
+  },
+  {
+   "name": "C",
+   "kind": "plate",
+   "t": 6,
+   "top": 140,
+   "L": 500.0,
+   "dir_deg": 30.0
+  },
+  {
+   "name": "D",
+   "kind": "plate",
+   "t": 8,
+   "top": 90,
+   "L": 200.0,
+   "dir_deg": 120.0
+  }
+ ]
+}

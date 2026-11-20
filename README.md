@@ -95,7 +95,23 @@ pyinstaller --noconfirm --clean --onedir --name recon `
 - `tools/recon.py` 顶部显式 `import numpy/scipy/cv2`，是为了让打包工具静态发现依赖（主流程代码是经 `runpy` 执行的，打包器看不到）。
 - conda 环境的 opencv 是拆分布局（`cv2.pyd` 依赖 `Library\bin\opencv_*.dll`），必须用 `--add-binary` 收进来；PyPI 的自包含 wheel 则不需要。
 - **打包后 `--jobs` 多进程可用**（入口已调用 `multiprocessing.freeze_support()`）；输出与 Python 逐字节一致。
-- 评分（`eval_recon.py`）、有效性检查（`check_step.py`）依赖 OCP（约几百 MB），不建议打进主 exe；有参考模型的工件请用 Python 环境跑评分，主 exe 专注"大量出模型"。
+- 评分（`eval_recon.py`）、有效性检查（`check_step.py`）依赖 OCP，可以单独打一个 `score.exe`（约 740 MB）：
+
+```powershell
+pyinstaller --noconfirm --clean --onedir --name score `
+  --paths "<OCP 所在目录>" `
+  --add-data "<OCP 所在目录>\OCP;OCP" `
+  --add-data "<OCP 所在目录>\vtk.libs;vtk.libs" `
+  --add-data "<OCP 所在目录>\cadquery_ocp.libs;cadquery_ocp.libs" `
+  --add-data "tools;tools" --exclude-module matplotlib --exclude-module cv2 `
+  --distpath D:\work\recon_dist --workpath D:\work\recon_build --specpath D:\work\recon_build `
+  tools\eval_cli.py
+
+score.exe check_step out\S1_tee\model.step
+score.exe eval_recon --cloud X.pcd --ref r.step --out o.step --json r.json
+```
+
+OCP 的子模块是运行时按需加载的，必须整树 `--add-data` 收进去；打包后 `--ocp` 参数不用再传。
 
 ## 目录结构
 
